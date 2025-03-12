@@ -8,6 +8,8 @@ from uptime_kuma_api import MonitorType, AuthMethod
 class Monitor(BaseModel):
     type: MonitorType
     name: str
+    parent: Optional[str] = None
+    description: Optional[str] = None
     interval: int = 60
     retryInterval: int = 60
     resendInterval: int = 0
@@ -23,21 +25,30 @@ class Monitor(BaseModel):
     accepted_statuscodes: Optional[List] = None
     proxyId: Optional[int] = None
     method: str = "GET"
+    httpBodyEncoding: str = "json"
     body: Optional[str] = None
     headers: Optional[str] = None
     authMethod: AuthMethod = AuthMethod.NONE
+    tlsCert: Optional[str] = None
+    tlsKey: Optional[str] = None
+    tlsCa: Optional[str] = None
     basic_auth_user: Optional[str] = None
     basic_auth_pass: Optional[str] = None
     authDomain: Optional[str] = None
     authWorkstation: Optional[str] = None
 
-    # KEYWORD
+    # OAUTH
+    oauth_auth_method: Optional[str] = "client_secret_basic"
+    oauth_token_url: Optional[str] = None
+    oauth_client_id: Optional[str] = None
+    oauth_client_secret: Optional[str] = None
+    oauth_scopes: Optional[str] = None
+
+    timeout: Optional[int] = None
     keyword: Optional[str] = None
-
-    # DNS PING STEAM MQTT
+    invertKeyword: bool = False
     hostname: Optional[str] = None
-
-    # DNS STEAM MQTT
+    packetSize: Optional[int] = None
     port: int = 53
 
     # DNS
@@ -64,6 +75,21 @@ class Monitor(BaseModel):
     radiusSecret: Optional[str] = None
     radiusCalledStationId: Optional[str] = None
     radiusCallingStationId: Optional[str] = None
+
+    # GAME
+    game: Optional[str] = None
+    gamedigGivenPortOnly: bool = False
+
+    jsonPath: Optional[str] = None
+    expectedValue: Optional[str] = None
+
+    # KAFKA
+    kafkaProducerBrokers: Optional[str] = None
+    kafkaProducerTopic: Optional[str] = None
+    kafkaProducerMessage: Optional[str] = None
+    kafkaProducerSsl: bool = False
+    kafkaProducerAllowAutoTopicCreation: bool = False
+    kafkaProducerSaslOptions: Optional[dict] = None
 
     class Config:
         use_enum_values = True
