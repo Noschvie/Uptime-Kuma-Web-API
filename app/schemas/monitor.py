@@ -13,7 +13,7 @@ class Monitor(BaseModel):
     interval: int = 60
     retryInterval: int = 60
     resendInterval: int = 0
-    maxretries: int = 0
+    maxretries: int = 1
     upsideDown: bool = False
     notificationIDList: Optional[List] = None
 
@@ -44,11 +44,11 @@ class Monitor(BaseModel):
     oauth_client_secret: Optional[str] = None
     oauth_scopes: Optional[str] = None
 
-    timeout: Optional[int] = None
+    timeout: int = 48
     keyword: Optional[str] = None
     invertKeyword: bool = False
     hostname: Optional[str] = None
-    packetSize: Optional[int] = None
+    packetSize: int = 56
     port: int = 53
 
     # DNS
