@@ -21,19 +21,22 @@ async def get_current_user(token: str = Depends(oauth2_token)):
             token, settings.SECRET_KEY, algorithms=[security.ALGORITHM]
         )
         token_data = JWTData(**payload)
-
     except (jwt.exceptions.InvalidSignatureError, ValidationError) as e:
         logging.info(e)
-        raise HTTPException(status_code=403, detail="invalid credentials")
-
+        raise HTTPException(status_code=403, detail="Invalid credentials")
     except jwt.exceptions.ExpiredSignatureError as e:
         logging.info(e)
-        raise HTTPException(status_code=403, detail="Token expired !!")
+        raise HTTPException(status_code=403, detail="Token expired!")
+
     try:
         api = UptimeKumaApi(settings.KUMA_SERVER, wait_events=settings.KUMA_WAIT_EVENTS)
         api.login_by_token(token_data.sub)
         user = {"token": token_data.sub, "api": api}
-        return user
+        try:
+            yield user
+        finally:
+            api.logout()
+            del api
     except UptimeKumaException as e:
         logging.fatal(e)
         raise HTTPException(400, {"error": str(e)})
@@ -45,4 +48,5 @@ def authenticate(user: UserCreate, password: str) -> Optional[UserResponse]:
 
     if not verify_password(password, user.password_hash):
         return None
+
     return user
