@@ -7,7 +7,7 @@ from uptime_kuma_api import MonitorType, AuthMethod
 class Monitor(BaseModel):
     type: MonitorType
     name: str
-    parent: Optional[str] = None
+    parent: Optional[int] = None
     description: Optional[str] = None
     interval: int = 60
     retryInterval: int = 60
