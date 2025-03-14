@@ -4,12 +4,23 @@
 
 ---
 
-## EndPoints:
+## Endpoints:
 
-![Alt text](./images/1.png)
-![Alt text](./images/2.png)
+![1](./images/1.png)
+![2](./images/2.png)
+![3](./images/3.png)
+![4](./images/4.png)
 
 ## How to use it:
+```bash
+git clone https://github.com/021-projects/Uptime-Kuma-Web-API.git
+cd Uptime-Kuma-Web-API
+git checkout develop
+./setup.sh
+./run.sh
+```
+
+## How to use it with Docker:
 
 ---
 
@@ -26,6 +37,7 @@ You have to define these ENV VARS in order to connect to your KUMA server.
 #### Optional
 Additional configuration variables available
 
+    KUMA_WAIT_EVENTS: Time in seconds to wait for events to be processed. Defaults to 0.2 second.
     ACCESS_TOKEN_EXPIRATION: Minutes the access token should be valid. Defaults to 8 days.
     SECRET_KEY: A secret value to encode JWTs with
 
