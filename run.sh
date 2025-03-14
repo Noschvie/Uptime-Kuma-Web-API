@@ -12,10 +12,6 @@ if [ -z "$NAME" ]; then
   export NAME=uptime-kuma-web-api
 fi
 
-if [ -z "$WORKERS" ]; then
-  export WORKERS=1
-fi
-
 if [ -z "$WORKER_CLASS" ]; then
   export WORKER_CLASS=uvicorn.workers.UvicornWorker
 fi
@@ -32,7 +28,7 @@ cd $DIR
 
 exec gunicorn main:app \
   --name $NAME \
-  --workers $WORKERS \
+  --workers 1 \
   --worker-class $WORKER_CLASS \
   --bind=$BIND \
   --log-level=$LOG_LEVEL 

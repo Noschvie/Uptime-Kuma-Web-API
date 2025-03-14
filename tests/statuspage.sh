@@ -19,7 +19,7 @@ curl -s -X 'POST' \
 
 echo -e "\nGet a specific status page:"
 curl -s -L -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" http://localhost:8000/statuspages/new-page
-STATUS_PAGE_ID=$(curl -s -L -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" http://localhost:8000/statuspages/new-page | jq -r ".id")
+STATUS_PAGE_ID=$(curl -s -L -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" http://localhost:8000/status_pages/new-page | jq -r ".id")
 echo -e "\nStatus Page ID: ${STATUS_PAGE_ID}"
 
 echo -e "\nSave a status page:"
