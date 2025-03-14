@@ -17,7 +17,7 @@ async def get_uptime(s: JWTSession = Depends(get_jwt_session)):
         raise HTTPException(500, str(e))
 
 
-@router.get("/{monitor_id}", description="Uptime for a specific monitor")
+@router.get("/{monitor_id}", description="Uptime for a specific monitors")
 async def get_monitor_uptime(monitor_id: int, s: JWTSession = Depends(get_jwt_session)):
     try:
         uptimes = await get_uptimes(s.api)

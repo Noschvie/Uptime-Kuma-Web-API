@@ -6,8 +6,8 @@ from auth.schemas import JWTSession
 from auth.dependencies import get_jwt_session
 from config import logger as logging
 from .raises import raise_monitor_not_found
-from ping.utils import get_avg_pings
-from uptime.utils import get_uptimes
+from pings.utils import get_avg_pings
+from uptimes.utils import get_uptimes
 
 router = APIRouter(redirect_slashes=True)
 
@@ -32,10 +32,10 @@ async def get_monitor(monitor_id: int = Path(...), s: JWTSession = Depends(get_j
         logging.fatal(e)
         raise HTTPException(500, str(e))
 
-    return {"monitor": monitor}
+    return {"monitors": monitor}
 
 
-@router.get("/{monitor_id}/dashboard", description="Get monitor dashboard data")
+@router.get("/{monitor_id}/dashboard", description="Get monitors dashboard data")
 async def get_monitor_dashboard(
         monitor_id: int = Path(...),
         heartbeat_hours: int = 1,
@@ -51,9 +51,9 @@ async def get_monitor_dashboard(
         raise HTTPException(500, str(e))
 
     response = {
-        "monitor": monitor,
+        "monitors": monitor,
         "avgResponseTime": None,
-        "uptime": {
+        "uptimes": {
             "24": None,
             "720": None,
         }
@@ -70,7 +70,7 @@ async def get_monitor_dashboard(
     try:
         uptimes = await get_uptimes(s.api)
         if monitor_id in uptimes:
-            response["uptime"] = uptimes[monitor_id]
+            response["uptimes"] = uptimes[monitor_id]
     except Exception as e:
         logging.fatal(e)
         raise HTTPException(500, str(e))
@@ -85,7 +85,7 @@ async def get_monitor_dashboard(
     return response
 
 
-@router.get("/{monitor_id}/cert", description="Get monitor certificate info")
+@router.get("/{monitor_id}/cert", description="Get monitors certificate info")
 async def get_monitor_cert_info(monitor_id: int = Path(...), s: JWTSession = Depends(get_jwt_session)):
     try:
         info = s.api.cert_info()
@@ -130,7 +130,7 @@ async def update_monitor(
         logging.fatal(e)
         raise HTTPException(500, str(e))
 
-    return {**resp, "monitor": monitor.dict(exclude_unset=True)}
+    return {**resp, "monitors": monitor.dict(exclude_unset=True)}
 
 
 @router.delete("/{monitor_id}", description="Delete a specific Monitor")
@@ -186,7 +186,7 @@ async def monitor_beats(
         raise HTTPException(500, str(e))
 
 
-@router.post("/{monitor_id}/tag", description="Add an already created tag to a specific monitor")
+@router.post("/{monitor_id}/tag", description="Add an already created tag to a specific monitors")
 async def add_monitor_tag(
         tag: MonitorTag,
         monitor_id: int = Path(...),
@@ -202,7 +202,7 @@ async def add_monitor_tag(
         raise HTTPException(500, str(e))
 
 
-@router.delete("/{monitor_id}/tag", description="Delete a tag from a specific monitor")
+@router.delete("/{monitor_id}/tag", description="Delete a tag from a specific monitors")
 async def delete_monitor_tag(
         tag: MonitorTag,
         monitor_id: int = Path(...),

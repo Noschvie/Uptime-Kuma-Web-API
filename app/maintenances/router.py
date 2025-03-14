@@ -20,7 +20,7 @@ async def get_maintenances(s: JWTSession = Depends(get_jwt_session)):
         raise HTTPException(500, str(e))
 
 
-@router.get("/{maintenance_id}", description="Get maintenance by ID")
+@router.get("/{maintenance_id}", description="Get maintenances by ID")
 async def get_maintenance(maintenance_id: int = Path(...), s: JWTSession = Depends(get_jwt_session)):
     try:
         return s.api.get_maintenance(maintenance_id)
@@ -32,7 +32,7 @@ async def get_maintenance(maintenance_id: int = Path(...), s: JWTSession = Depen
         raise HTTPException(500, str(e))
 
 
-@router.post("", description="Create a maintenance")
+@router.post("", description="Create a maintenances")
 async def create_maintenance(maintenance: Maintenance, s: JWTSession = Depends(get_jwt_session)):
     try:
         return s.api.add_maintenance(**maintenance.dict())
@@ -44,7 +44,7 @@ async def create_maintenance(maintenance: Maintenance, s: JWTSession = Depends(g
         raise HTTPException(500, str(e))
 
 
-@router.patch("/{maintenance_id}", description="Update a specific maintenance")
+@router.patch("/{maintenance_id}", description="Update a specific maintenances")
 async def update_maintenance(
         maintenance: MaintenanceUpdate,
         maintenance_id: int = Path(...),
@@ -53,7 +53,7 @@ async def update_maintenance(
     try:
         return {
             **s.api.edit_maintenance(id_=maintenance_id, **maintenance.dict(exclude_unset=True)),
-            "maintenance": maintenance.dict(exclude_unset=True)
+            "maintenances": maintenance.dict(exclude_unset=True)
         }
     except UptimeKumaException as e:
         logging.info(e)
@@ -79,7 +79,7 @@ async def delete_maintenance(maintenance_id: int = Path(...), s: JWTSession = De
         raise HTTPException(500, str(e))
 
 
-@router.post("/{maintenance_id}/pause", description="Pause a specific maintenance")
+@router.post("/{maintenance_id}/pause", description="Pause a specific maintenances")
 async def pause_maintenance(maintenance_id: int = Path(...), s: JWTSession = Depends(get_jwt_session)):
     try:
         return s.api.pause_maintenance(maintenance_id)
@@ -91,7 +91,7 @@ async def pause_maintenance(maintenance_id: int = Path(...), s: JWTSession = Dep
         raise HTTPException(500, str(e))
 
 
-@router.post("/{maintenance_id}/resume", description="Resume a specific maintenance")
+@router.post("/{maintenance_id}/resume", description="Resume a specific maintenances")
 async def resume_maintenance(maintenance_id: int = Path(...), s: JWTSession = Depends(get_jwt_session)):
     try:
         return s.api.resume_maintenance(maintenance_id)
@@ -103,7 +103,7 @@ async def resume_maintenance(maintenance_id: int = Path(...), s: JWTSession = De
         raise HTTPException(500, str(e))
 
 
-@router.get("/{maintenance_id}/monitors", description="Get monitors to a maintenance")
+@router.get("/{maintenance_id}/monitors", description="Get monitors to a maintenances")
 async def add_monitor_maintenance(
         maintenance_id: int = Path(...),
         s: JWTSession = Depends(get_jwt_session)
@@ -118,7 +118,7 @@ async def add_monitor_maintenance(
         raise HTTPException(500, str(e))
 
 
-@router.post("/{maintenance_id}/monitors", description="Adds monitors to a maintenance")
+@router.post("/{maintenance_id}/monitors", description="Adds monitors to a maintenances")
 async def add_monitor_maintenance(
         monitors: List[MonitorMaintenance],
         maintenance_id: int = Path(...),
@@ -129,7 +129,7 @@ async def add_monitor_maintenance(
         return s.api.add_monitor_maintenance(maintenance_id, mns)
     except UptimeKumaException as e:
         logging.info(e)
-        raise HTTPException(404, {"message": "Maintenance or monitor not found!"})
+        raise HTTPException(404, {"message": "Maintenance or monitors not found!"})
     except Exception as e:
         logging.fatal(e)
         raise HTTPException(500, str(e))

@@ -85,9 +85,9 @@ class DeleteStatusPageResponse(BaseModel):
 
 
 # Error
-# uptime-kuma-web-api-api-1  | pydantic.error_wrappers.ValidationError: 1 validation error for DeleteStatusPageResponse
-# uptime-kuma-web-api-api-1  | response
-# uptime-kuma-web-api-api-1  |   none is not an allowed value (type=type_error.none.not_allowed)
+# uptimes-kuma-web-api-api-1  | pydantic.error_wrappers.ValidationError: 1 validation error for DeleteStatusPageResponse
+# uptimes-kuma-web-api-api-1  | response
+# uptimes-kuma-web-api-api-1  |   none is not an allowed value (type=type_error.none.not_allowed)
 
 
 class PostIncidentRequest(BaseModel):

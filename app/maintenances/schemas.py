@@ -10,7 +10,7 @@ class Maintenance(BaseModel):
 
     strategy (MaintenanceStrategy) – Strategy
 
-    active (bool, optional) – True if maintenance is active, defaults to True
+    active (bool, optional) – True if maintenances is active, defaults to True
 
     description (str, optional) – Description, defaults to ""
 
@@ -18,9 +18,9 @@ class Maintenance(BaseModel):
 
     intervalDay (int, optional) – Interval (Run once every day), defaults to 1
 
-    weekdays (list, optional) – List that contains the days of the week on which the maintenance is enabled (Sun = 0, Mon = 1, …, Sat = 6). Required for strategy RECURRING_WEEKDAY., defaults to [].
+    weekdays (list, optional) – List that contains the days of the week on which the maintenances is enabled (Sun = 0, Mon = 1, …, Sat = 6). Required for strategy RECURRING_WEEKDAY., defaults to [].
 
-    daysOfMonth (list, optional) – List that contains the days of the month on which the maintenance is enabled (Day 1 = 1, Day 2 = 2, …, Day 31 = 31) and the last day of the month (Last Day of Month = "lastDay1", 2nd Last Day of Month = "lastDay2", 3rd Last Day of Month = "lastDay3", 4th Last Day of Month = "lastDay4"). Required for strategy RECURRING_DAY_OF_MONTH., defaults to [].
+    daysOfMonth (list, optional) – List that contains the days of the month on which the maintenances is enabled (Day 1 = 1, Day 2 = 2, …, Day 31 = 31) and the last day of the month (Last Day of Month = "lastDay1", 2nd Last Day of Month = "lastDay2", 3rd Last Day of Month = "lastDay3", 4th Last Day of Month = "lastDay4"). Required for strategy RECURRING_DAY_OF_MONTH., defaults to [].
 
     timeRange (list, optional) – Maintenance Time Window of a Day, defaults to [{"hours": 2, "minutes": 0}, {"hours": 3, "minutes": 0}].
     """

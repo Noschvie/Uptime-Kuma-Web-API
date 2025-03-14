@@ -13,7 +13,7 @@ AUTH_HEADER="Authorization: Bearer ${TOKEN}"
 
 echo "Create a maintenance: \n"
 MAINTENANCE_ID=$(curl -s -X 'POST' \
-  ${BASE_URL}/maintenance \
+  ${BASE_URL}/maintenances \
   -H 'accept: application/json' \
   -H "Authorization: Bearer ${TOKEN}" \
   -H 'Content-Type: application/json' \
@@ -44,7 +44,7 @@ echo "Maintenance ID: ${MAINTENANCE_ID}"
 
 echo "Get all maintenances: \n"
 curl -s -X 'GET' \
-  ${BASE_URL}/maintenance \
+  ${BASE_URL}/maintenances \
   -H 'accept: application/json' \
   -H "Authorization: Bearer ${TOKEN}"
 

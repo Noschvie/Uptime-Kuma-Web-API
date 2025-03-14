@@ -66,13 +66,13 @@ You can simply create a docker compose file like this :
 version: "3.9"
 services:
   kuma:
-    container_name: uptime-kuma
-    image: louislam/uptime-kuma:latest
+    container_name: uptimes-kuma
+    image: louislam/uptimes-kuma:latest
     ports:
       - "3001:3001"
     restart: always
     volumes:
-      - uptime-kuma:/app/data
+      - uptimes-kuma:/app/data
 
   api:
     container_name: backend
